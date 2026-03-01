@@ -4,8 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:dangky": "playwright test DangKy --project=chromium --headed"
-  },
+    "test:dangky": "playwright test DangKy --project=chromium --headed",
+    "test:dangky:pass": "playwright test DangKy --project=chromium --headed --grep \"Đăng ký tài khoản mới\"",
+    "test:dangky:email": "playwright test DangKy --project=chromium --headed --grep \"Email đã tồn tại\"",
+    "test:dangky:weakpass": "playwright test DangKy --project=chromium --headed --grep \"Password không đủ mạnh\"",
+    "test:filter": "playwright test Filter --project=chromium --headed",
+    "test:roomdetail": "playwright test RoomDetail --project=chromium --headed",
+    "test:datphong": "playwright test DatPhong.spec --project=chromium --headed",
+    "test:login": "playwright test Login.spec --project=chromium --headed",
+    "test:lichsu": "playwright test LichSuDatPhong.spec --project=chromium --headed",
+    "test:chinhsua": "playwright test ChinhSuaHoSo.spec --project=chromium --headed",
+    "test:uploadavatar": "playwright test UploadAvatar.spec --project=chromium --headed"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
