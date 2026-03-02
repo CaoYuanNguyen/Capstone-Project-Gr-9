@@ -2,7 +2,7 @@ import {Page, Locator} from '@playwright/test'
 
 export class HomePage {
     readonly page: Page;
-
+    readonly hoChiMinhLink: Locator;
     readonly userMenuButton: Locator;
     readonly dangNhapButton: Locator;
     readonly dangKyButton: Locator;
@@ -19,6 +19,7 @@ export class HomePage {
 
         this.dangNhapButton = page.getByRole("button", {name:"Đăng nhập"})
                         .or(page.locator("li button:has-text('Đăng nhập')"));
+        this.hoChiMinhLink = page.locator('a[href="/rooms/ho-chi-minh"]');
     }
 
     // b1: truy cap trang web
@@ -45,5 +46,10 @@ export class HomePage {
     async clickDangNhapButton(): Promise<void> {
         await this.dangNhapButton.waitFor({state: 'visible', timeout: 6000})
         await this.dangNhapButton.click();
+    }
+
+    // click vào link Hồ Chí Minh
+    async clickHoChiMinhRoom() {
+        await this.hoChiMinhLink.click();
     }
 }

@@ -4,13 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:dangky": "playwright test DangKy --project=chromium --headed"
+    "test": "playwright test",
+    "test:dangky": "playwright test tests/DangKy.spec.ts --project=chromium --headed",
+    "test:room": "playwright test tests/CheckInfoRoom.spec.ts --project=chromium --headed",
+    "test:sort": "playwright test tests/SortInfoRoom.spec.ts --project=chromium --headed"
+
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.58.0",
+    "@playwright/test": "^1.58.2",
     "@types/node": "^25.3.2"
   }
 }
