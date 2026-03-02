@@ -6,6 +6,7 @@ export class HomePage {
     readonly userMenuButton: Locator;
     readonly dangNhapButton: Locator;
     readonly dangKyButton: Locator;
+    readonly signOutButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -20,6 +21,11 @@ export class HomePage {
         this.dangNhapButton = page.getByRole("button", {name:"Đăng nhập"})
                         .or(page.locator("li button:has-text('Đăng nhập')"));
         this.hoChiMinhLink = page.locator('a[href="/rooms/ho-chi-minh"]');
+    
+
+        // Nút đăng xuất trong dropdown
+        this.signOutButton = page.getByRole('button', { name: 'Sign out' });
+
     }
 
     // b1: truy cap trang web
@@ -52,4 +58,10 @@ export class HomePage {
     async clickHoChiMinhRoom() {
         await this.hoChiMinhLink.click();
     }
+    async signOut(): Promise<void> {
+    await this.clickUserMenu();
+    await this.signOutButton.waitFor({ state: 'visible', timeout: 5000 });
+    await this.signOutButton.click();
+}
+
 }

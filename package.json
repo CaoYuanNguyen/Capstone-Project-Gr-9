@@ -7,7 +7,10 @@
     "test": "playwright test",
     "test:dangky": "playwright test tests/DangKy.spec.ts --project=chromium --headed",
     "test:room": "playwright test tests/CheckInfoRoom.spec.ts --project=chromium --headed",
-    "test:sort": "playwright test tests/SortInfoRoom.spec.ts --project=chromium --headed"
+    "test:sort": "playwright test tests/SortInfoRoom.spec.ts --project=chromium --headed",
+    "test:signout": "playwright test tests/DangXuat.spec.ts --project=chromium --headed",
+    "test:login": "playwright test Login.spec --project=chromium --headed",
+    "test:checkgia": "playwright test tests/CheckGia.spec.ts --project=chromium --headed"
 
   },
   "keywords": [],
