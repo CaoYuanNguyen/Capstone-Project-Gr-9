@@ -1,24 +1,21 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test'
+import { HomePage } from '../pages/HomePage'
+import { LoginHelper } from '../helpers/loginHelper'
+import { LOGIN_DATA } from '../data/testData'
 
-test('TC04_Login_Success', async ({ page }) => {
+test.describe('Đăng nhập', () => {
 
-  await page.goto('https://demo5.cybersoft.edu.vn/');
+  test('TC04_Đăng nhập thành công', async ({ page }) => {
+        const homePage = new HomePage(page)
+        const loginHelper = new LoginHelper(page)
 
-  await page.locator("img.h-10").click();
-  await page.locator("text=Đăng nhập").first().click();
+        await homePage.goto()
+        await loginHelper.login(LOGIN_DATA.valid.email, LOGIN_DATA.valid.password)
 
-  const emailInput = page.locator("input[placeholder='Vui lòng nhập tài khoản']");
-  const passInput = page.locator("input[placeholder='Vui lòng nhập mật khẩu']");
-
-  await emailInput.waitFor();
-
-  await emailInput.fill("tnguyen22@gmail.com");
-  await passInput.fill("123");
-
-  await page.waitForTimeout(3000);
-
-  await page.locator("button:has-text('Đăng nhập')").last().click();
-
-  await expect(page.locator("img.h-10")).toBeVisible({ timeout: 5000 });
-  await page.waitForTimeout(3000);
-});
+        
+        await expect(page.locator("img.h-10")).toBeVisible({ timeout: 5000 })
+        await expect(
+            page.locator("input[placeholder='Vui lòng nhập tài khoản']")
+      ).toHaveCount(0)
+  })
+})

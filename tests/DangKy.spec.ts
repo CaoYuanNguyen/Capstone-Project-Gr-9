@@ -1,91 +1,125 @@
 import { test, expect } from '@playwright/test'
-// import { describe } from 'node:test'
 import { HomePage } from '../pages/HomePage'
-import { RegisterModal } from '../pages/RegisterModal' 
+import { RegisterModal } from '../pages/RegisterModal'
+import { AssertionHelper } from '../helpers/assertionHelper'
+import { REGISTER_DATA } from '../data/testData'
 
 test.describe('Đăng Ký', () => {
-    test("Đăng ký tài khoản mới", async ({page}) => {
-        // Khởi tạo object HomePage
-        const homePage = new HomePage(page);
+
+    test('TC01_Đăng ký tài khoản mới thành công', async ({ page }) => {
+        const homePage     = new HomePage(page)
         const registerModal = new RegisterModal(page)
+        const assert        = new AssertionHelper(page)
+        const d = REGISTER_DATA.valid
 
-        // b1: truy cập trang web
         await homePage.goto()
-
-        // b2: click vào user menu
         await homePage.clickUserMenu()
-
-        // b3: click vào nút đăng ký
         await homePage.clickDangKyButton()
-
-        // b4: doi modal xuat hien
         await registerModal.waitForModal()
-
-        // b5: dien ten
-        await registerModal.fillName("Nguyen ne")
-
-        // b6: dien email
-        await registerModal.fillEmail("thaonguyen27@gmail.com")
-
-        // b7: dien password
-        await registerModal.fillPassword("12345678")
-
-        // b8: dien so dien thoai
-        await registerModal.fillPhone("0125672368")
-
-        // b9: chon ngay sinh
+        await registerModal.fillName(d.name)
+        await registerModal.fillEmail(d.email)
+        await registerModal.fillPassword(d.password)
+        await registerModal.fillPhone(d.phone)
         await registerModal.fillBirthday(28)
-
-        // b10: chon gioi tinh
         await registerModal.selectGender()
-
-        // b11: click nút đăng ký
         await registerModal.clickSubmit()
 
-        expect(true).toBeTruthy()
+        await assert.expectSuccessMessage()
     })
 
-    test("Đăng ký thất bại - Email đã tồn tại", async ({page}) => {
-        const homePage = new HomePage(page);
+    test('TC02_Đăng ký thất bại - Email đã tồn tại', async ({ page }) => {
+        const homePage     = new HomePage(page)
         const registerModal = new RegisterModal(page)
+        const assert        = new AssertionHelper(page)
+        const d = REGISTER_DATA.duplicateEmail
 
         await homePage.goto()
         await homePage.clickUserMenu()
         await homePage.clickDangKyButton()
         await registerModal.waitForModal()
-
-        await registerModal.fillName("Nguyen ne")
-        await registerModal.fillEmail("thaonguyen2223@gmail.com") 
-        await registerModal.fillPassword("12345678")
-        await registerModal.fillPhone("0125672368")
+        await registerModal.fillName(d.name)
+        await registerModal.fillEmail(d.email)
+        await registerModal.fillPassword(d.password)
+        await registerModal.fillPhone(d.phone)
         await registerModal.fillBirthday(28)
         await registerModal.selectGender()
         await registerModal.clickSubmit()
 
-        // Kiểm tra thông báo lỗi xuất hiện
-        const errorMessage = page.locator(".ant-message-notice-content")
-        await expect(errorMessage).toBeVisible({timeout: 5000})
-
-        // Kiểm tra nội dung thông báo lỗi (tuỳ chọn)
-        await expect(errorMessage).toContainText("tồn tại")
+        await assert.expectErrorMessage('tồn tại')
     })
 
-    test("Đăng ký thất bại - Password không đủ mạnh", async ({page}) => {
-        const homePage = new HomePage(page);
+    test('TC03_Đăng ký thất bại - Password không đủ mạnh', async ({ page }) => {
+        const homePage     = new HomePage(page)
         const registerModal = new RegisterModal(page)
+        const assert        = new AssertionHelper(page)
+        const d = REGISTER_DATA.weakPassword
 
         await homePage.goto()
         await homePage.clickUserMenu()
         await homePage.clickDangKyButton()
         await registerModal.waitForModal()
-
-        await registerModal.fillName("Nguyen ne")
-        await registerModal.fillEmail("thaonguyen80@gmail.com") 
-        await registerModal.fillPassword("1")
-        await registerModal.fillPhone("0125672368")
+        await registerModal.fillName(d.name)
+        await registerModal.fillEmail(d.email)
+        await registerModal.fillPassword(d.password)
+        await registerModal.fillPhone(d.phone)
         await registerModal.fillBirthday(28)
         await registerModal.selectGender()
         await registerModal.clickSubmit()
 
+        await assert.expectValidationError()
+    })
+
+    test('TC_Edge_Đăng ký - Bỏ trống tất cả fields', async ({ page }) => {
+        const homePage     = new HomePage(page)
+        const registerModal = new RegisterModal(page)
+        const assert        = new AssertionHelper(page)
+
+        await homePage.goto()
+        await homePage.clickUserMenu()
+        await homePage.clickDangKyButton()
+        await registerModal.waitForModal()
+        await registerModal.clickSubmit()
+
+        await assert.expectValidationError()
+    })
+
+    test('TC_Edge_Đăng ký - Email sai format', async ({ page }) => {
+        const homePage     = new HomePage(page)
+        const registerModal = new RegisterModal(page)
+        const assert        = new AssertionHelper(page)
+
+        await homePage.goto()
+        await homePage.clickUserMenu()
+        await homePage.clickDangKyButton()
+        await registerModal.waitForModal()
+        await registerModal.fillName('Test User')
+        await registerModal.fillEmail('emailsaiformat')
+        await registerModal.fillPassword('12345678')
+        await registerModal.fillPhone('0123456789')
+        await registerModal.fillBirthday(28)
+        await registerModal.selectGender()
+        await registerModal.clickSubmit()
+
+        await assert.expectValidationError()
+    })
+
+    test('TC_Edge_Đăng ký - Số điện thoại chứa chữ', async ({ page }) => {
+        const homePage     = new HomePage(page)
+        const registerModal = new RegisterModal(page)
+        const assert        = new AssertionHelper(page)
+
+        await homePage.goto()
+        await homePage.clickUserMenu()
+        await homePage.clickDangKyButton()
+        await registerModal.waitForModal()
+        await registerModal.fillName('Test User')
+        await registerModal.fillEmail('testedge@gmail.com')
+        await registerModal.fillPassword('12345678')
+        await registerModal.fillPhone('abcdefghij')
+        await registerModal.fillBirthday(28)
+        await registerModal.selectGender()
+        await registerModal.clickSubmit()
+
+        await assert.expectValidationError()
     })
 })
