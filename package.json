@@ -19,7 +19,19 @@
     "test:lichsu":   "playwright test tests/LichSuDatPhong.spec.ts --project=chromium --headed",
     "test:updateprofile": "playwright test ChinhSuaHoSo.spec --project=chromium --headed",
     "test:uploadavatar": "playwright test UploadAvatar.spec --project=chromium --headed",
-    "test:all": "playwright test --project=chromium --headed"
+
+    "test:booking": "playwright test booking.spec --project=chromium --headed",
+    "test:bookingfail": "playwright test bookingfail --project=chromium --headed",
+    "test:login:partner": "playwright test login_partner --project=chromium --headed",
+    "test:search": "playwright test search_filter --project=chromium --headed",
+    "test:view": "playwright test view_profile --project=chromium --headed",
+    "test:change": "playwright test change_pass --project=chromium --headed",
+  
+    "test:room": "playwright test CheckInfoRoom --project=chromium --headed",
+    "test:sort": "playwright test SortInfoRoom --project=chromium --headed",
+    "test:signout": "playwright test DangXuat --project=chromium --headed",
+    "test:checkgia": "playwright test CheckGia --project=chromium --headed"
+
   },
   "keywords": [],
   "author": "",
