@@ -10,7 +10,7 @@ export class RegisterModal {
     readonly birthdayInput: Locator;
     readonly genderSelect: Locator;
     readonly submitButton: Locator;
-    readonly closeButton: Locator;
+    // readonly closeButton: Locator;
     readonly modal: Locator;
 
     constructor(page: Page) {
