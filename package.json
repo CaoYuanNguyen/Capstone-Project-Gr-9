@@ -19,6 +19,17 @@
 
     "test:booking": "playwright test tests/Booking.spec.ts --project=chromium --headed",
 
+    "test:search": "playwright test tests/TC08_search.spec.ts --project=chromium --headed",
+    "test:locngay": "playwright test tests/TC09_locngay.spec.ts --project=chromium --headed",
+    "test:lockhach": "playwright test tests/TC10_lockhach.spec.ts --project=chromium --headed",
+    "test:locgia": "playwright test tests/TC11_locgia.spec.ts --project=chromium --headed",
+    "test:roomdetail": "playwright test tests/TC12_roomdetail.spec.ts --project=chromium --headed",
+    "test:roominfo": "playwright test tests/TC13_roominfo.spec.ts --project=chromium --headed",
+    "test:pagination": "playwright test tests/TC14_Pagination.spec.ts --project=chromium --headed",
+    "test:danhgia": "playwright test tests/TC17_danhgia.spec.ts --project=chromium --headed",
+    "test:listrating": "playwright test tests/TC18_listrating.spec.ts --project=chromium --headed" ,
+    "test:testfail": "playwright test tests/TC25_testfail.spec.ts --project=chromium --headed" ,
+
     "test:all": "playwright test --project=chromium --headed"
   },
   "keywords": [],
