@@ -12,7 +12,16 @@ export const VALID_USER = {
 }
 
 export const LOGIN_DATA = {
-    valid: { email: 'tnguyen22@gmail.com', password: '123' },
+    valid: { 
+        email: 'tnguyen22@gmail.com', 
+        password: '123' 
+    },
+    invalid: {
+        wrongEmail: 'tnguyen_sai@gmail.com',
+        wrongPass: '123456',
+        emptyEmail: '',
+        invalidFormat: 'tnguyen22@'
+    }
 }
 
 export const REGISTER_DATA = {
@@ -21,6 +30,7 @@ export const REGISTER_DATA = {
         email: `tnguyen${Date.now()}@gmail.com`,
         password: '12345678',
         phone: '0125672368',
+        birthday: '28/07/2004'
     },
     duplicateEmail: {
         name: 'Nguyen ne',
